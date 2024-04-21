@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Pet {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  created_at  DateTime @default(now())
+
+  org    Org    @relation(fields: [org_id], references: [id])
+  org_id String
+
+  pet_size PetSize @relation(fields: [size_id], references: [id])
+  size_id  Int
+
+  pet_age PetAge @relation(fields: [age_id], references: [id])
+  age_id  Int
+
+  pet_level_energy PetLevelEnergy @relation(fields: [level_energy_id], references: [id])
+  level_energy_id  Int
+
+  pet_enviroment PetEnviroment @relation(fields: [enviroment_id], references: [id])
+  enviroment_id  Int
+
+  pet_level_independence PetLevelIndependence @relation(fields: [level_independence_id], references: [id])
+  level_independence_id  Int
+
+  pet_requirements PetRequirements @relation(fields: [requirements_id], references: [id])
+  requirements_id  String
+
+  photos PetPhotos[]
+
+  @@map("pets")
+}
+
+model PetSize {
+  id          Int    @id @default(autoincrement())
+  description String
+
+  Pet Pet[]
+
+  @@map("pet_size")
+}
+
+model PetAge {
+  id          Int    @id @default(autoincrement())
+  description String
+
+  Pet Pet[]
+
+  @@map("pet_age")
+}
+
+model PetLevelEnergy {
+  id           Int    @id @default(autoincrement())
+  level_number Int
+  description  String
+
+  Pet Pet[]
+
+  @@map("pet_level_energy")
+}
+
+model PetEnviroment {
+  id          Int    @id @default(autoincrement())
+  description String
+
+  Pet Pet[]
+
+  @@map("pet_enviroment")
+}
+
+model PetLevelIndependence {
+  id          Int    @id @default(autoincrement())
+  description String
+
+  Pet Pet[]
+
+  @@map("pet_level_independence")
+}
+
+model PetRequirements {
+  id  String @id @default(uuid())
+  url String
+
+  Pet Pet[]
+
+  @@map("pet_requirements")
+}
+
+model PetPhotos {
+  id  String @id @default(uuid())
+  url String
+
+  Pet    Pet?    @relation(fields: [pet_id], references: [id])
+  pet_id String?
+
+  @@map("pet_photos")
+}
+
+model Org {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  password   String
+  whatsapp   String
+  created_at DateTime @default(now())
+
+  address OrgAddress?
+
+  pets Pet[]
+
+  @@map("orgs")
+}
+
+model OrgAddress {
+  id       String @id @default(uuid())
+  address  String
+  number   String
+  district String
+  city     String
+  state    String
+  cep      String
+  lat      String
+  lng      String
+
+  org    Org?    @relation(fields: [org_id], references: [id])
+  org_id String? @unique
+
+  @@map("org_address")
+}

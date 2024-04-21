@@ -1,6 +1,6 @@
 import { app } from '@/app'
 import { env } from '@/env'
 
-app.listen({ port: env.PORT }, () => {
+app.listen({ host: env.HOST, port: env.PORT }, () => {
   console.log(`App is running on port ${env.PORT}`)
 })
