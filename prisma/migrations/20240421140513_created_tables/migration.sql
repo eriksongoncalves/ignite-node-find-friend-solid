@@ -94,8 +94,6 @@ CREATE TABLE "org_address" (
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,
     "cep" TEXT NOT NULL,
-    "lat" TEXT NOT NULL,
-    "lng" TEXT NOT NULL,
     "org_id" TEXT,
 
     CONSTRAINT "org_address_pkey" PRIMARY KEY ("id")
