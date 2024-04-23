@@ -1,7 +1,7 @@
 import { compareSync } from 'bcryptjs'
 
 import { OrgRepository } from '@/repositories/org-repository-interface'
-import { AuthError } from './errors/org-already-exists-error copy'
+import { AuthError } from './errors/auth-error'
 
 type AuthUseCaseRequest = {
   email: string

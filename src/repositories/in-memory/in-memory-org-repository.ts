@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto'
 
 import { OrgRepository } from '../org-repository-interface'
 
-export class InMemoryOrgRegister implements OrgRepository {
+export class InMemoryOrgRepository implements OrgRepository {
   private orgs: Org[] = []
 
   async create(data: Prisma.OrgCreateInput): Promise<Org> {
@@ -20,6 +20,7 @@ export class InMemoryOrgRegister implements OrgRepository {
 
     return Promise.resolve(orgData)
   }
+
   async findById(id: string): Promise<Org | null> {
     const orgFound = await Promise.resolve(this.orgs.find(org => org.id === id))
 
