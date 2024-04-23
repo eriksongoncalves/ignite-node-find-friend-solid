@@ -39,7 +39,7 @@ Duplique e renomeie o arquivo `.env.example` para `.env`
 Execute o comando a baixo para inicializar o banco de dados:
 
 ```sh
-  docker compose up
+  docker-compose up
 ```
 
 Execute aplicação:
