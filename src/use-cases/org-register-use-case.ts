@@ -1,9 +1,10 @@
 import { hash } from 'bcryptjs'
+import { Org } from '@prisma/client'
 
 import { OrgRepository } from '@/repositories/org-repository-interface'
 import { OrgAlreadyExistsError } from './errors/org-already-exists-error'
 
-type DataRequest = {
+type OrgRegisterUseCaseRequest = {
   name: string
   email: string
   password: string
@@ -17,10 +18,10 @@ type DataRequest = {
 }
 
 export class OrgRegisterUseCase {
-  constructor(private privateOrgRepository: OrgRepository) {}
+  constructor(private orgRepository: OrgRepository) {}
 
-  async execute(orgData: DataRequest) {
-    const orgFound = await this.privateOrgRepository.findByEmail(orgData.email)
+  async execute(orgData: OrgRegisterUseCaseRequest): Promise<Org> {
+    const orgFound = await this.orgRepository.findByEmail(orgData.email)
 
     if (orgFound) {
       throw new OrgAlreadyExistsError()
@@ -28,7 +29,7 @@ export class OrgRegisterUseCase {
 
     const passwordHash = await hash(orgData.password, 6)
 
-    return await this.privateOrgRepository.create({
+    return await this.orgRepository.create({
       name: orgData.name,
       email: orgData.email,
       password: passwordHash,

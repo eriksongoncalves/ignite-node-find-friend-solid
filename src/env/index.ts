@@ -11,7 +11,9 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('production'),
   PORT: z.coerce.number().default(3333),
   HOST: z.string().default('0.0.0.0'),
-  DATABASE_URL: z.string()
+  DATABASE_URL: z.string(),
+  JWT_SECRET: z.string(),
+  JWT_EXPIRE: z.string().default('1d')
 })
 
 // eslint-disable-next-line no-underscore-dangle
