@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-import { AuthError } from '@/use-cases/errors/org-already-exists-error copy'
+import { AuthError } from '@/use-cases/errors/auth-error'
 import { makeAuthFactory } from '@/use-cases/factories/make-auth-factory'
 import { env } from '@/env'
 

@@ -10,7 +10,6 @@ CREATE TABLE "pets" (
     "level_energy_id" INTEGER NOT NULL,
     "enviroment_id" INTEGER NOT NULL,
     "level_independence_id" INTEGER NOT NULL,
-    "requirements_id" TEXT NOT NULL,
 
     CONSTRAINT "pets_pkey" PRIMARY KEY ("id")
 );
@@ -59,7 +58,8 @@ CREATE TABLE "pet_level_independence" (
 -- CreateTable
 CREATE TABLE "pet_requirements" (
     "id" TEXT NOT NULL,
-    "url" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "pet_id" TEXT NOT NULL,
 
     CONSTRAINT "pet_requirements_pkey" PRIMARY KEY ("id")
 );
@@ -106,7 +106,7 @@ CREATE UNIQUE INDEX "orgs_email_key" ON "orgs"("email");
 CREATE UNIQUE INDEX "org_address_org_id_key" ON "org_address"("org_id");
 
 -- AddForeignKey
-ALTER TABLE "pets" ADD CONSTRAINT "pets_org_id_fkey" FOREIGN KEY ("org_id") REFERENCES "orgs"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "pets" ADD CONSTRAINT "pets_org_id_fkey" FOREIGN KEY ("org_id") REFERENCES "orgs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "pets" ADD CONSTRAINT "pets_size_id_fkey" FOREIGN KEY ("size_id") REFERENCES "pet_size"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -124,10 +124,10 @@ ALTER TABLE "pets" ADD CONSTRAINT "pets_enviroment_id_fkey" FOREIGN KEY ("enviro
 ALTER TABLE "pets" ADD CONSTRAINT "pets_level_independence_id_fkey" FOREIGN KEY ("level_independence_id") REFERENCES "pet_level_independence"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "pets" ADD CONSTRAINT "pets_requirements_id_fkey" FOREIGN KEY ("requirements_id") REFERENCES "pet_requirements"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "pet_requirements" ADD CONSTRAINT "pet_requirements_pet_id_fkey" FOREIGN KEY ("pet_id") REFERENCES "pets"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "pet_photos" ADD CONSTRAINT "pet_photos_pet_id_fkey" FOREIGN KEY ("pet_id") REFERENCES "pets"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "org_address" ADD CONSTRAINT "org_address_org_id_fkey" FOREIGN KEY ("org_id") REFERENCES "orgs"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "org_address" ADD CONSTRAINT "org_address_org_id_fkey" FOREIGN KEY ("org_id") REFERENCES "orgs"("id") ON DELETE CASCADE ON UPDATE CASCADE;

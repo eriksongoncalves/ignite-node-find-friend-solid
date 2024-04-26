@@ -31,10 +31,8 @@ model Pet {
   pet_level_independence PetLevelIndependence @relation(fields: [level_independence_id], references: [id])
   level_independence_id  Int
 
-  pet_requirements PetRequirements @relation(fields: [requirements_id], references: [id])
-  requirements_id  String
-
-  photos PetPhotos[]
+  photos          PetPhotos[]
+  PetRequirements PetRequirements[]
 
   @@map("pets")
 }
@@ -86,10 +84,11 @@ model PetLevelIndependence {
 }
 
 model PetRequirements {
-  id  String @id @default(uuid())
-  url String
+  id          String @id @default(uuid())
+  description String
 
-  Pet Pet[]
+  Pet    Pet    @relation(fields: [pet_id], references: [id], onDelete: Cascade)
+  pet_id String
 
   @@map("pet_requirements")
 }
