@@ -45,6 +45,8 @@ Execute o comando abaixo para rodar as migrations
   npx prisma migrate dev
 ```
 
+Após rodar as migrations, rode o script SQL dentro do postgres que está na pasta `prisma/dump.sql`
+
 Execute aplicação:
 
 ```sh
