@@ -7,4 +7,10 @@ export class PrismaPetRepository implements PetRepository {
   async create(data: Prisma.PetUncheckedCreateInput): Promise<Pet> {
     return await prisma.pet.create({ data })
   }
+
+  async findMany(where: Prisma.PetWhereInput): Promise<Pet[]> {
+    return await prisma.pet.findMany({
+      where
+    })
+  }
 }
