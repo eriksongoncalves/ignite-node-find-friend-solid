@@ -31,15 +31,18 @@ Duplique e renomeie o arquivo `.env.example` para `.env`
 
 ```sh
   npm install
-  npx prisma migrate dev
 ```
 
-## Executando a aplicação
-
-Execute o comando a baixo para inicializar o banco de dados:
+Execute o comando abaixo para criar o banco de dados:
 
 ```sh
   docker-compose up
+```
+
+Execute o comando abaixo para rodar as migrations
+
+```sh
+  npx prisma migrate dev
 ```
 
 Execute aplicação:
