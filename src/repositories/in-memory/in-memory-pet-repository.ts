@@ -57,4 +57,10 @@ export class InMemoryPetRepository implements PetRepository {
 
     return Promise.resolve(petsFiltered)
   }
+
+  async findById(id: string): Promise<Pet | null> {
+    const pet = this.pets.find(pet => pet.id === id)
+
+    return await Promise.resolve(pet || null)
+  }
 }
