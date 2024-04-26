@@ -10,7 +10,6 @@ export const petRegisterController = async (
   const petSchema = z.object({
     name: z.string(),
     description: z.string(),
-    org_id: z.string().uuid(),
     size_id: z.number(),
     age_id: z.number(),
     level_energy_id: z.number(),
@@ -24,7 +23,10 @@ export const petRegisterController = async (
   try {
     const petRegisterUseCase = makePetRegisterFactory()
 
-    const pet = await petRegisterUseCase.execute(petBodyData)
+    const pet = await petRegisterUseCase.execute({
+      ...petBodyData,
+      org_id: req.user.sub
+    })
 
     return reply.status(201).send(pet)
   } catch (err) {
