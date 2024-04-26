@@ -14,7 +14,7 @@ describe('PetListUseCase', () => {
   })
 
   it('should be able to list pets', async () => {
-    inMemoryPetRepository.create(mockCreatePetData)
+    await inMemoryPetRepository.create(mockCreatePetData)
 
     const pets = await petListUseCase.execute({ city: 'São Paulo' })
 
@@ -22,7 +22,7 @@ describe('PetListUseCase', () => {
   })
 
   it('should be return a empty list when there is no data', async () => {
-    inMemoryPetRepository.create(mockCreatePetData)
+    await inMemoryPetRepository.create(mockCreatePetData)
 
     const pets = await petListUseCase.execute({ city: 'Fortaleza' })
 
